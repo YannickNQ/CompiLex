@@ -1,13 +1,13 @@
 echo off
 D:\Programs\GnuWin32\bin\flex lexmini.l
-echo "FLEX compilo la especificación lexica del archivo lexmini.l (Se creo un archivo lex.yy.c)"
+echo "FLEX compiled the lexical specification from the file lexmini.l (a file lex.yy.c was created)"
 pause
 D:\Programs\MinGW\mingw64\bin\gcc.exe lex.yy.c -o Compilado.exe
-echo "Finalizo la ejecución del compilador C sobre el archivo lex.yy.c (Se creo un archivo Compilado.exe)"
+echo "The execution of the C compiler on the lex.yy.c file has finished (a Compiled.exe file was created)"
 pause
 Compilado.exe Prueba.txt
-echo "Se ejecuto el analizador lexico sobre el archivo Prueba.txt"
+echo "The lexical analyzer was executed on the file Prueba.txt"
 del lex.yy.c
 @REM del Compilado.exe
-echo "Se borraron los archivos generados en todo este proceso, finalizando..."
+echo "The files generated throughout this process were deleted, ending..."
 pause
