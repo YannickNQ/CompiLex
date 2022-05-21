@@ -1,1 +1,1 @@
-Select name FroM table2 WHEre a2;
+SelEcT name FroM table2 WHEre a2;

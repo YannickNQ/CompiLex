@@ -1,19 +1,17 @@
 %{
-/*Librerias que vamos a usar*/
+/*Libraries*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <string.h>
-#include <ctype.h>
 FILE *yyin;
 %}
-/*SECCIÓN DE OPCIONES*/
-/* Esto indica a Flex que lea un solo fichero de entrada*/
+/*OPTIONS SECTION*/
+/* This tells Flex to read a single input file*/
 %option noyywrap
-/*Esto nos permitirá obtener el número de línea*/
+/*This will allow us to get the line number*/
 %option yylineno
 
-/*SECCIÓN DE TOKENS*/
+/*TOKEN SECTION*/
 LETTER          [a-zA-Z]
 DIGIT           [0-9]
 ESPACE          ["  "]
@@ -27,7 +25,7 @@ ID	            {LETTER}({LETTER}|{DIGIT})*
 CONST_INTEGER   (-?[1-9][0-9]{0,4})|0
 CONST_FLOAT     {DIGIT}{0,8}{CHAR_DOT}{DIGIT}{1,8}
 
-/*Operadores lógicos y operados aritmeticos basicos*/
+/*Logical operators and basic arithmetic operators*/
 OP_SUM          ["+"]
 OP_SUBT         ["-"]
 OP_MULT         ["*"]
@@ -40,12 +38,12 @@ OP_LOE          "<="
 OP_NOT          "!"
 OP_NE           "!="
 
-/*Palabras Reservadas*/
+/*KEYWORDS*/
 WHERE 	        [W|w][H|h][E|e][R|r][E|e]
 FROM	        [F|f][R|r][O|o][M|n]
 SELECT	        [S|s][E|e][L|l][E|e][C|c][T|t]
 
-/*SECCIÓN DE REGLAS Y ACCIÓN SEMÁNTICA*/
+/*RULES AND SEMANTIC ACTION SECTION*/
 %%
 {END_SENTENCE}  { printf("\nEND_SENTENCE (%s)", yytext);}
 {CONST_INTEGER} { fn_checkran(yytext), printf("\nCONST_INTEGER (%s)", yytext);}
@@ -63,9 +61,9 @@ SELECT	        [S|s][E|e][L|l][E|e][C|c][T|t]
 {OP_NOT}        { printf("\nOP_NOT (%s)", yytext);}
 {OP_NE}         { printf("\nOP_NE (%s)", yytext);}
 
-{WHERE} 	    { printf("\nPalabra Reservada WHERE: (%s)", yytext); }
-{FROM} 		    { printf("\nPalabra Reservada FROM:(%s)", yytext); }
-{SELECT}	    { printf("\nPalabra Reservada SELECT: (%s)", yytext);}
+{WHERE} 	    { printf("\nKEYWORD: (%s)", yytext); }
+{FROM} 		    { printf("\nKEYWORD:(%s)", yytext); }
+{SELECT}	    { printf("\nKEYWORD: (%s)", yytext);}
 {ID}		    { printf("\nID: (%s)", yytext);}
 
 "\n"
@@ -87,7 +85,7 @@ int main(int argc, char *argv[])
     fclose(yyin);
     return 0;
 }
-/*Esta funcion nos servira para saber si el valor esta dentro del rango*/
+/*This function will help us to know if the value is within the range*/
 int fn_checkran(char *ptr)
 {
     int value = atoi(ptr);
@@ -98,8 +96,8 @@ int fn_checkran(char *ptr)
     }    
 }
 
-/*Esta funcion nos retornará el error*/
+/*This function will return the error*/
 int yyerror(void){
-    printf("\n Error lexico: Caracter Invalido: %s \n", yytext);
+    printf("\n Lexical Error: Invalid Character: %s \n", yytext);
     exit(1);
 }
